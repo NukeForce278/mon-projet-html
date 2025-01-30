@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afficher l'adresse IP</title>
+    <style>
+        /* Centrer le bouton et le texte */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080);
+            background-size: 300% 300%;
+            animation: gradientAnimation 5s ease infinite;
+            transition: transform 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        #ip {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="afficherIP()">Cliquer pour accéder à ce site</button>
+    <p id="ip"></p>
+
+    <script>
+        function afficherIP() {
+            // Utilisation d'un service externe pour récupérer l'adresse IP
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    // Afficher l'adresse IP et l'emoji qui rigole
+                    document.getElementById('ip').innerHTML = "Votre adresse IP est : " + data.ip + " <span class='emoji'>😂</span>";
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de l\'adresse IP:', error);
+                    document.getElementById('ip').innerText = "Impossible de récupérer l'adresse IP.";
+                });
+        }
+    </script>
+</body>
+</html>
